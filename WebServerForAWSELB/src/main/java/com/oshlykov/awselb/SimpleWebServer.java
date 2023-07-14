@@ -10,6 +10,6 @@ public class SimpleWebServer implements HttpFunction {
     @Override
     public void service(HttpRequest request, HttpResponse response) throws Exception {
             final BufferedWriter writer = response.getWriter();
-            writer.write("Hello world!");
+            writer.write("Remote Hello world!");
     }
 }
