@@ -1,31 +1,15 @@
 package com.oshlykov.awselb;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
+import com.google.cloud.functions.HttpFunction;
+import com.google.cloud.functions.HttpRequest;
+import com.google.cloud.functions.HttpResponse;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
+import java.io.BufferedWriter;
 
-public class SimpleWebServer {
-
-    public static void main(String[] args) throws Exception {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-        server.createContext("/", new MyHandler());
-        server.setExecutor(null); // Используем дефолтный пул потоков
-        server.start();
-        System.out.println("Server running on port 8000");
-    }
-
-    static class MyHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange httpExchange) throws IOException {
-            String response = "Hello World!";
-            httpExchange.sendResponseHeaders(200, response.length());
-            OutputStream os = httpExchange.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
-        }
+public class SimpleWebServer implements HttpFunction {
+    @Override
+    public void service(HttpRequest request, HttpResponse response) throws Exception {
+            final BufferedWriter writer = response.getWriter();
+            writer.write("Hello world!");
     }
 }
