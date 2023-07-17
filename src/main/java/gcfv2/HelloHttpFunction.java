@@ -1,15 +1,30 @@
 package gcfv2;
 
-import com.google.cloud.functions.HttpFunction;
-import com.google.cloud.functions.HttpRequest;
-import com.google.cloud.functions.HttpResponse;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 
-import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
 
-public class HelloHttpFunction implements HttpFunction {
-    @Override
-    public void service(HttpRequest request, HttpResponse response) throws Exception {
-            final BufferedWriter writer = response.getWriter();
-            writer.write("Remote Hello World! Version STAGING!!! Now I can deploy to PDOD!");
+public class HelloHttpFunction {
+    public static void main(String[] args) throws Exception {
+        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        server.createContext("/", new MyHandler());
+        server.setExecutor(null); // Используем дефолтный пул потоков
+        server.start();
+        System.out.println("Сервер запущен на порту 8000");
+    }
+
+    static class MyHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange httpExchange) throws IOException {
+            String response = "Привет, мир!";
+            httpExchange.sendResponseHeaders(200, response.length());
+            OutputStream os = httpExchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        }
     }
 }
