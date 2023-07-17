@@ -25,8 +25,8 @@ steps:
     id: DEPLOY
 
 substitutions:
-  _FUNCTION_PROJECT : PROD
+  _FUNCTION_PROJECT : SHLYKOV-PROD
   _FUNCTION_NAME    : my-java-app
   _FUNCTION_REGION  : us-central1
   _FUNCTION_RUNTIME : Java 17
-  _ENTRY_POINT      : helloWorld
+  _ENTRY_POINT      : gcfv2.HelloHttpFunction
