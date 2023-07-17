@@ -12,7 +12,7 @@ public class HelloHttpFunction implements HttpFunction {
     @Override
     public void service(HttpRequest request, HttpResponse response) throws IOException {
         PrintWriter writer = new PrintWriter(response.getWriter());
-        writer.write("Привет, это простой веб-сервер на Java 17 с использованием Cloud Functions!");
+        writer.write("Hi, This is simple Java 17 web-server with using Cloud Functions!");
         writer.flush();
     }
 }
