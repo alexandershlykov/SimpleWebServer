@@ -10,6 +10,6 @@ public class HelloHttpFunction implements HttpFunction {
     @Override
     public void service(HttpRequest request, HttpResponse response) throws Exception {
             final BufferedWriter writer = response.getWriter();
-            writer.write("Remote Hello world!");
+            writer.write("Remote Staging Hello world!");
     }
 }
